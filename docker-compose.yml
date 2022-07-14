@@ -1,0 +1,17 @@
+version: "3.7"
+
+#criação de um serviço
+services:
+  # nome do serviço
+  app:
+    # configura o serviço para fazer um docker build no diretorio local
+    build: .
+    # nome do container que será criado
+    container_name: rentx
+    # define qual porta do container será traduzida para uma local
+    ports:
+      - 3333:3333
+    # define qual conteudo deve ser conpiado para o container "- .:"
+    # e onde salva-lo "/usr/app"
+    volumes:
+      - .:/usr/app
