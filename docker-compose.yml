@@ -2,12 +2,33 @@ version: "3.7"
 
 #criação de um serviço
 services:
+  database_rentx:
+    # imagem que será usada,(imgem do postegres já existente no docker)
+    image: postgres
+    # nome do container que será criado
+    container_name: database_rentx
+    # faz com o conteiner sempre seja reiniciado caso seja parado 
+    restart: always
+    # define qual porta do container será traduzida para uma local
+    ports:
+      - 5432:5432
+    # variaveis de ambiente que será passadas para dentro do container
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=ignite
+      - POSTGRES_DB=rentx
+    volumes:
+      - pgdata:/data/postgres
+    network_mode: host
+
   # nome do serviço
   app:
+    # nome da imagem que será usada ou criada
+    image: 05_rentx
+    # nome do container que será criado
+    container_name: 05_rentx
     # configura o serviço para fazer um docker build no diretorio local
     build: .
-    # nome do container que será criado
-    container_name: rentx
     # define qual porta do container será traduzida para uma local
     ports:
       - 3333:3333
@@ -15,3 +36,8 @@ services:
     # e onde salva-lo "/usr/app"
     volumes:
       - .:/usr/app
+    network_mode: host
+
+volumes:
+  pgdata:
+    driver: local
