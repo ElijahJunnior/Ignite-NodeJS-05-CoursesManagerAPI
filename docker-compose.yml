@@ -1,25 +1,26 @@
-version: "3.7"
+version: "3.9"
 
-#criação de um serviço
+#criação dos serviços
 services:
+  # nome do serviço
   database_rentx:
-    # imagem que será usada,(imgem do postegres já existente no docker)
+    # imagem que será usada (imagem do postegres já existente no docker)
     image: postgres
     # nome do container que será criado
     container_name: database_rentx
-    # faz com o conteiner sempre seja reiniciado caso seja parado 
+    # faz com o container sempre seja reiniciado caso seja parado 
     restart: always
     # define qual porta do container será traduzida para uma local
     ports:
       - 5432:5432
-    # variaveis de ambiente que será passadas para dentro do container
+    # variáveis de ambiente que serão passadas para dentro do container
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=ignite
       - POSTGRES_DB=rentx
+    # define onde serão salvos os dados da base
     volumes:
       - pgdata:/data/postgres
-    network_mode: host
 
   # nome do serviço
   app:
@@ -27,17 +28,25 @@ services:
     image: 05_rentx
     # nome do container que será criado
     container_name: 05_rentx
-    # configura o serviço para fazer um docker build no diretorio local
+    # configura o serviço para fazer um docker build no diretório local
     build: .
     # define qual porta do container será traduzida para uma local
     ports:
       - 3333:3333
-    # define qual conteudo deve ser conpiado para o container "- .:"
-    # e onde salva-lo "/usr/app"
+    # define qual conteúdo deve ser copiado para o container "- .:"
+    # e onde salvá-lo "/usr/app"
     volumes:
       - .:/usr/app
-    network_mode: host
+    # cria um link entre os dois serviços (containers)
+    # para que esse container acesse o do banco de dados
+    links:
+      - database_rentx
+    # define quais serviços deve iniciar antes desse
+    # é usado quando o serviço sendo criado depende de outros para funcionar
+    depends_on:
+      - database_rentx
 
+# torna os volumes acessíveis externamente
 volumes:
   pgdata:
     driver: local
