@@ -9,7 +9,7 @@ services:
     # nome do container que será criado
     container_name: database_rentx
     # faz com o container sempre seja reiniciado caso seja parado 
-    restart: always
+    # restart: always
     # define qual porta do container será traduzida para uma local
     ports:
       - 5432:5432
