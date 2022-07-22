@@ -7,6 +7,7 @@ class CreateCategoryController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
 
+    // injeta na váriavel o uma instancia da classe informada
     const createCategoryUseCase = container.resolve(CreateCategoryUseCase);
 
     await createCategoryUseCase.execute({ name, description });

@@ -7,9 +7,12 @@ interface IRequest {
   description: string;
 }
 
+// faz com o tsyringe torne essa classe injetável
 @injectable()
 class CreateCategoryUseCase {
   constructor(
+    // Instancia a propriedade abaixo com uma a
+    // injeção que tenha o nome informado e esteja no container
     @inject("CategoriesRepository")
     private categoriesRepository: ICategoriesRepository
   ) {}
@@ -23,7 +26,7 @@ class CreateCategoryUseCase {
       throw new Error("Category aleready exists!");
     }
 
-    this.categoriesRepository.create({ name, description });
+    await this.categoriesRepository.create({ name, description });
   }
 }
 
