@@ -3,13 +3,10 @@
 **RF** 
 Deve ser possível cadastrar um novo carro.
 
-**RNF**
-
 **RN**
 Não deve ser possível cadastrar um carro com uma placa já existente.
-Não deve ser possível alterar a placa de uma carro já cadastrado.
 O carro deve ser cadastrado com disponibilidade por padrão.
-O cadastro só pode ser efetuado por um usuário administrador.
+*O cadastro só pode ser efetuado por um usuário administrador.
 
 # Listagem de Carros 
 
