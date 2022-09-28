@@ -13,7 +13,7 @@ async function create() {
 
   await connection.query(
     `INSERT INTO USERS (id, name, email, password, "isAdmin", driver_license, created_at)
-    VALUES ('${id}', 'Administrador', 'admin@rentx.com.br', '${password}', true, '123456', 'now()')`
+    VALUES ('${id}', 'Administrador', 'admin@rentx.com.br', '${password}', true, '123456', now())`
   );
 
   await connection.close();
