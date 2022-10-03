@@ -1,17 +1,22 @@
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
+import { SpecificationsRepositoryInMemory } from "@modules/cars/repositories/in-memory/SpecificationsRepositoryInMemory";
+import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 import { AppError } from "@shared/errors/AppError";
 
 import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
 
 let carsRepository: ICarsRepository;
+let specificationRepository: ISpecificationsRepository;
 let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
 
 describe("Create Car Specification", () => {
   beforeEach(() => {
     carsRepository = new CarsRepositoryInMemory();
+    specificationRepository = new SpecificationsRepositoryInMemory();
     createCarSpecificationUseCase = new CreateCarSpecificationUseCase(
-      carsRepository
+      carsRepository,
+      specificationRepository
     );
   });
 
@@ -38,11 +43,19 @@ describe("Create Car Specification", () => {
       category_id: "category_id",
     });
 
-    const specifications_id = ["123"];
+    const specification = await specificationRepository.create({
+      description: "specification",
+      name: "test",
+    });
 
-    await createCarSpecificationUseCase.execute({
+    const specifications_id = [specification.id];
+
+    const specificationsCars = await createCarSpecificationUseCase.execute({
       car_id: car.id,
       specifications_id,
     });
+
+    expect(specificationsCars).toHaveProperty("specifications");
+    expect(specificationsCars.specifications.length).toBe(1);
   });
 });
