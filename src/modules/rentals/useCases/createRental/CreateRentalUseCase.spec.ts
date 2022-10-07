@@ -1,20 +1,25 @@
-import dayjs from "dayjs";
-
 import { RentalsRepositoryInMemory } from "@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
+import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDataProvider";
 import { AppError } from "@shared/errors/AppError";
 
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 let rentalsRepository: IRentalsRepository;
+let dateProvider: IDateProvider;
 let createRentalUseCase: CreateRentalUseCase;
+let expected_return_date: Date;
 
 describe("Create Rental", () => {
-  const expected_return_date = dayjs().add(1, "day").toDate();
-
   beforeEach(() => {
     rentalsRepository = new RentalsRepositoryInMemory();
-    createRentalUseCase = new CreateRentalUseCase(rentalsRepository);
+    dateProvider = new DayjsDateProvider();
+    createRentalUseCase = new CreateRentalUseCase(
+      rentalsRepository,
+      dateProvider
+    );
+    expected_return_date = dateProvider.dateNowWithAdd(1, "day");
   });
 
   it("should be able to create a new rental", async () => {
@@ -65,7 +70,7 @@ describe("Create Rental", () => {
       await createRentalUseCase.execute({
         car_id: "000001",
         user_id: "000001",
-        expected_return_date: dayjs().add(22, "hours").toDate(),
+        expected_return_date: dateProvider.dateNowWithAdd(22, "hour"),
       });
     }).rejects.toBeInstanceOf(AppError);
   });
