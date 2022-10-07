@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add dayjs
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add supertest @types/supertest -D
 
 PATH: 
   C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\elija\AppData\Local\Microsoft\WindowsApps;C:\Users\elija\AppData\Roaming\npm;C:\Users\elija\AppData\Local\Yarn\bin;C:\Users\elija\AppData\Local\Programs\Microsoft VS Code\bin;
@@ -31,6 +31,7 @@ npm manifest:
     "dependencies": {
       "bcryptjs": "^2.4.3",
       "csv-parse": "^5.2.2",
+      "dayjs": "^1.11.5",
       "express": "^4.18.1",
       "express-async-errors": "^3.1.1",
       "jsonwebtoken": "^8.5.1",
@@ -1534,6 +1535,11 @@ Lockfile:
     version "5.2.2"
     resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-5.2.2.tgz#46cafc760fd56f6e2fb347b3eb4d3ba026845248"
     integrity sha512-WCQVGZM5YEj+2+mOuV0ss73GQi/pSlurOGD7qlJJi0sY9DPp2KiX7AInd3W1mjaxnIASlUIHirsTnLX5LoHF4g==
+  
+  dayjs@^1.11.5:
+    version "1.11.5"
+    resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.5.tgz#00e8cc627f231f9499c19b38af49f56dc0ac5e93"
+    integrity sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==
   
   debug@2.6.9, debug@^2.6.9:
     version "2.6.9"
