@@ -42,7 +42,7 @@ Deve ser possível listar todos os carros.
 Utilizar o multer para upload dos arquivos.
 
 **RN**
-O usuário deve poder cadastara mais de uma imagem para o mesmo carro.
+O usuário deve poder cadastrar mais de uma imagem para o mesmo carro.
 O cadastro só pode ser efetuado por um usuário administrador.
 
 # Aluguel de carro
@@ -72,6 +72,6 @@ O usuário deve estar logado na aplicação
 
   **RN** => Regras de Negocio
 
-  Detalha de que forma os recursos decritos nos requisitos funcionais deverão ser. Ex.: Não será possivel cadastrar duas categorias com o mesmo nome, Não será possivel excluir uma categora em uso. 
+  Detalha de que forma os recursos descritos nos requisitos funcionais deverão ser. Ex.: Não será possível cadastrar duas categorias com o mesmo nome, Não será possível excluir uma categoria em uso. 
 
 -->
