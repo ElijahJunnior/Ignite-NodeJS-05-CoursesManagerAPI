@@ -48,4 +48,36 @@ describe("Create Category Controller", () => {
 
     expect(res.status).toBe(201);
   });
+
+  it("should not be able to create a two or more categories with same name", async () => {
+    const resToken = await request(app).post("/sessions").send({
+      email: "admin@rentx.com.br",
+      password: "admin",
+    });
+
+    const { token } = resToken.body;
+
+    const resCategory1 = await request(app)
+      .post("/categories")
+      .send({
+        name: "Sedan2",
+        description: "Carros longos e baixos",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    const resCategory2 = await request(app)
+      .post("/categories")
+      .send({
+        name: "Sedan2",
+        description: "Carros longos e baixos",
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    expect(resCategory1.status).toBe(201);
+    expect(resCategory2.status).toBe(400);
+  });
 });
