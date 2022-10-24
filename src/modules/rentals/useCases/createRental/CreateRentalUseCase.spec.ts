@@ -1,3 +1,5 @@
+import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
+import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
 import { RentalsRepositoryInMemory } from "@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
@@ -7,6 +9,7 @@ import { AppError } from "@shared/errors/AppError";
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
 let rentalsRepository: IRentalsRepository;
+let carsRepository: ICarsRepository;
 let dateProvider: IDateProvider;
 let createRentalUseCase: CreateRentalUseCase;
 let expected_return_date: Date;
@@ -14,9 +17,11 @@ let expected_return_date: Date;
 describe("Create Rental", () => {
   beforeEach(() => {
     rentalsRepository = new RentalsRepositoryInMemory();
+    carsRepository = new CarsRepositoryInMemory();
     dateProvider = new DayjsDateProvider();
     createRentalUseCase = new CreateRentalUseCase(
       rentalsRepository,
+      carsRepository,
       dateProvider
     );
     expected_return_date = dateProvider.dateNowWithAdd(1, "day");

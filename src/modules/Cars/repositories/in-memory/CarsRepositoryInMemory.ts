@@ -42,7 +42,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
     return this.cars.find((car) => car.license_plate === license_plate);
   }
 
-  async findAvailables(
+  async findAvailableList(
     brand?: string,
     category_id?: string,
     name?: string
@@ -58,6 +58,12 @@ class CarsRepositoryInMemory implements ICarsRepository {
       }
       return null;
     });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async updateAvailable(id: string, available: boolean): Promise<void> {
+    const carIndex = this.cars.findIndex((car) => car.id === id);
+    this.cars[carIndex].available = available;
   }
 }
 
