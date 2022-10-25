@@ -64,6 +64,7 @@ Ao realizar um aluguel o status do carro deve ser alterado para indisponível.
 Deve ser possível realizar a devolução de um carro.
 
 **RN**
+O usuário deve estar logado na aplicação.
 Se o carro for devolvido com menos de 24 horas, deverá ser cobrado diária completa.
 Ao realizar uma devolução, o carro deverá ser liberado para outro aluguel.
 Ao realizar uma devolução, o usuário deverá ser liberado para outro aluguel.
