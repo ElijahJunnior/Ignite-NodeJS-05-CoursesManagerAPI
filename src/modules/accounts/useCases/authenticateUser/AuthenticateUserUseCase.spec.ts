@@ -1,4 +1,4 @@
-import { IUserCreateDTO } from "@modules/accounts/dtos/IUserCreateDTO";
+import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 import { AuthenticateUserUseCase } from "@modules/accounts/useCases/authenticateUser/AuthenticateUserUseCase";
 import { CreateUserUseCase } from "@modules/accounts/useCases/createUser/CreateUserUseCase";
@@ -16,7 +16,7 @@ describe("Authenticate User", () => {
   });
 
   it("should be able to authenticate a user", async () => {
-    const user: IUserCreateDTO = {
+    const user: ICreateUserDTO = {
       driver_license: "112233",
       email: "email@teste.com",
       name: "User Teste",
@@ -43,7 +43,7 @@ describe("Authenticate User", () => {
   });
 
   it("should not be able to authenticate with incorrect password", async () => {
-    const user: IUserCreateDTO = {
+    const user: ICreateUserDTO = {
       driver_license: "112233",
       email: "email@teste.com",
       name: "User Teste",
