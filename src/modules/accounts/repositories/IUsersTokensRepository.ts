@@ -8,6 +8,8 @@ interface IUsersTokensRepository {
     user_id,
   }: ICreateUserTokenDTO): Promise<UserTokens>;
 
+  findByToken(refresh_token: string): Promise<UserTokens>;
+
   findByTokenAndUserId(
     refresh_token: string,
     user_id: string

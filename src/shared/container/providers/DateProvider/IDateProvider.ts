@@ -12,6 +12,7 @@ interface IDateProvider {
     interval: number,
     unity: "year" | "month" | "day" | "hour" | "minute" | "second"
   );
+  compareIfBefore(start_date: Date, end_date: Date): boolean;
 }
 
 export { IDateProvider };
