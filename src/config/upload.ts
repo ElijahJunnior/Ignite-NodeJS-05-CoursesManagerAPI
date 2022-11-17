@@ -8,7 +8,7 @@ const tmpFolder = resolve(__dirname, "..", "..", "tmp");
 export default {
   // exporta path
   tmpFolder,
-  // cria a exporta Disk Storage usado pelo multer para fazer o upload
+  // cria um objeto de configuração para o Multer
   storage: multer.diskStorage({
     // path onde o arquivo vai ser salvo
     destination: tmpFolder,
@@ -17,7 +17,7 @@ export default {
       // gera um string de caracteres aleatórios
       const fileHash = crypto.randomBytes(16).toString("hex");
 
-      // gera o nome concatenando o nome original do arquivo com os caracteres aleatórios
+      // gera o nome somando o nome original do arquivo ao string aleatório
       const fileName = `${fileHash}-${file.originalname}`;
 
       // retorna um callback com o nome gerado
