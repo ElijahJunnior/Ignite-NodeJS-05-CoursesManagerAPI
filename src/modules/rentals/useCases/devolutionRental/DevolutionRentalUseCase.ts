@@ -18,7 +18,7 @@ class DevolutionRentalUseCase {
     private rentalsRepository: IRentalsRepository,
     @inject("CarsRepository")
     private carsRepository: ICarsRepository,
-    @inject("DayjsDateProvider")
+    @inject("DateProvider")
     private dateProvider: IDateProvider
   ) {}
 

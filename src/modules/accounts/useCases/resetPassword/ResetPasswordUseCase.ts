@@ -18,7 +18,7 @@ class ResetPasswordUseCase {
     private usersTokensRepository: IUsersTokensRepository,
     @inject("UsersRepository")
     private usersRepository: IUsersRepository,
-    @inject("DayjsDateProvider")
+    @inject("DateProvider")
     private dateProvider: IDateProvider
   ) {}
 
