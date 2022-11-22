@@ -30,7 +30,7 @@ class SendForgotPasswordMailUseCase {
       "..",
       "views",
       "emails",
-      "forgotPassword.hbs"
+      "forgotPasswordV2.hbs"
     );
 
     if (!user) {
