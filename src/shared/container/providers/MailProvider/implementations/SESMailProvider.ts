@@ -34,7 +34,7 @@ class SESMailProvider implements IMailProvider {
     // função que uso o cliente do nodemailer para enviar o email
     await this.client.sendMail({
       to,
-      from: `Rentx <${process.env.AWS_SES_FROM_ADDRESS}>`,
+      from: `Rentx <${process.env.AWS_SES_SENDER_ADDRESS}>`,
       subject,
       html: templateHTML,
     });
