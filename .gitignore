@@ -3,4 +3,6 @@
 .env
 .env.local
 coverage
-
+tmp/*
+!tmp/.gitkeep
+ormconfig.json
