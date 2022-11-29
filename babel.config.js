@@ -13,12 +13,12 @@ module.exports = {
         // remova o trecho /* do nome e do caminho 
         // complete o caminho relativo do diretório
         alias: {
-          //antes: "@modules/*": ["modules/*"] depois: "@modules": ["./src/modules"],
-          "@modules": ["./src/modules"],
-          "@config": ["./src/config"],
-          "@shared": ["./src/shared"],
-          "@errors": ["./src/errors"],
-          "@utils": ["./src/utils"]
+          //antes: "@modules/*": "modules/*" depois: "@modules": "./src/modules",
+          "@modules": "./src/modules",
+          "@config": "./src/config",
+          "@shared": "./src/shared",
+          "@errors": "./src/errors",
+          "@utils": "./src/utils"
         }
       }
     ],
