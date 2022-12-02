@@ -5,8 +5,8 @@ name: AWS_EC2_WRKFLW
 on: 
   # Será executado durante o push
   push:
-  # Somente quando feito na branch MASTER
-    branches: [master]
+  # Somente quando feito na branch MAIN
+    branches: [main]
 
 # Tarefas que deve ser executada
 jobs:
