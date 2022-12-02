@@ -1,0 +1,79 @@
+# Nome do Workflow
+name: AWS_EC2_WRKFLW
+
+# Quando ele será executado
+on: 
+  # Será executado durante o push
+  push:
+  # Somente quando feito na branch MASTER
+    branches: [master]
+
+# Tarefas que deve ser executada
+jobs:
+  # Criando a tarefa BUILD
+  build:
+    # Dando nome a tarefa
+    name: deploy on push to master
+    # Informando qual o SISTEMA OPERACIONAL usado no JOB
+    runs-on: ubuntu-latest
+    
+    # Um lista das etapas que serão executadas pelo Workflow
+    steps:
+      # Criando uma etapa
+      # Executando um action externo
+      # O Action CHECKOUT faz o checkout de uma versão especifica de um repositorio
+      - uses: actions/checkout@v2
+      
+      
+      # Criando uma etapa
+      - 
+        # Definindo o nome da etapa
+        name: Setup Node JS
+        # Executando um action externo
+        # O Action SETUP-NODE serve para definir a versão do node que o projeto usa
+        uses: actions/setup-node@v2
+        # Passando parâmetros para o Action
+        with:
+          # Passando qual versão do node usada no projeto
+          node-version: 18.x
+      
+      # Criando um nova etapa
+      - 
+        # Definindo o nome da etapa
+        name: Install Dependecies
+        # Ecutando um comando no shell da instancia
+        run: yarn
+          
+      # Criando um etapa
+      -
+        # Definindo o nome da etapa
+        name: Build
+        # Ecutando um comando no shell da instancia
+        run: yarn build
+        
+      # Cria uma etapa
+      # Essa etapa vai fazer uso do SCP FILES para copiar os arquivos 
+      # gerados lelo workflow para a instancia via SSH
+      -
+        # Executando um action externo
+        # O SCP FILES para copiar os arquivos gerados lelo workflow para a instancia via SSH
+        uses: appleboy/scp-action@master
+        # Passando parâmetros para o Action
+        with: 
+          # Passando variável criada na area secrets do Github
+          # Ip da publico da instancia na AWS
+          host: ${{ secrets.SSH_HOST }}
+          # O usuario usado
+          username: ${{ secrets.SSH_USER }}
+          # A porta usada pelo SSH 
+          port: ${{ secrets.SSH_PORT }}
+          # Chave privada para autenticação
+          key: ${{ secrets.SSH_KEY }}
+          # Define arquivos devem ser copiados
+          # Nesse exemplo o . define que todos os arquivos devem ser copiados
+          # Nesse exemplo o !node_modules define a pasta node_modules deve ser ignorada
+          source: "., !node_modules"
+          # Define qual deve ser o diretorio de destino dentro da instancia que vai receber os arquivos
+          target: " ~/app/Ignite-NodeJS-05-Rentx/"
+        
+      
