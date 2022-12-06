@@ -17,12 +17,12 @@ jobs:
     # Informando qual o SISTEMA OPERACIONAL usado no JOB
     runs-on: ubuntu-latest
     
-    # Um lista das etapas que serão executadas pelo Workflow
+    # Uma lista das etapas que serão executadas pelo Workflow
     steps:
       # Criando uma etapa
       # Executando um action externo
       # O Action CHECKOUT faz o checkout de uma versão 
-      # especifica de um repositorio
+      # específica de um repositório
       - uses: actions/checkout@v2
       
       
@@ -39,18 +39,18 @@ jobs:
           # Passando qual versão do node usada no projeto
           node-version: 18.x
       
-      # Criando um nova etapa
+      # Criando uma etapa
       - 
         # Definindo o nome da etapa
         name: Install Dependecies
-        # Ecutando um comando no shell da instancia
+        # Executando um comando no shell da instancia
         run: yarn
           
-      # Criando um etapa
+      # Criando uma etapa
       -
         # Definindo o nome da etapa
         name: Build
-        # Ecutando um comando no shell da instancia
+        # Executando um comando no shell da instancia
         run: yarn build
         
       # Cria uma etapa
@@ -64,9 +64,9 @@ jobs:
         # Passando parâmetros para o Action
         with: 
           # Passando variável criada na area secrets do Github
-          # Ip da publico da instancia na AWS
+          # Ip público da instancia na AWS
           host: ${{ secrets.SSH_HOST }}
-          # O usuario usado
+          # O usuário usado
           username: ${{ secrets.SSH_USER }}
           # A porta usada pelo SSH 
           port: ${{ secrets.SSH_PORT }}
@@ -77,21 +77,21 @@ jobs:
           # devem ser copiados e o trecho !node_modules define que 
           # a pasta node_modules deve ser ignorada
           source: "., !node_modules"
-          # Define qual deve ser o diretorio de destino dentro da 
+          # Define qual deve ser o diretório de destino dentro da 
           # instancia que vai receber os arquivos
-          target: " ~/app/Ignite-NodeJS-05-Rentx/"
+          target: "caminho raiz da sua aplicação. Ex.: ~/app/meu_app"
       # Essa etapa faz uso do Appleboy ssh-action para executar 
       # um script via SSH na instancia onde a aplicação está hospedada
       -
         name: Update api
         # Fazendo uso do action externo Appleboy SSH-Action
         uses: appleboy/ssh-action@master
-        # Passando parametros pro action externo
+        # Passando parâmetros para o action externo
         with: 
           # Passando variável criada na area secrets do Github
-          # Ip da publico da instancia na AWS
+          # Ip da público da instancia na AWS
           host: ${{ secrets.SSH_HOST }}
-          # O usuario usado
+          # O usuário usado
           username: ${{ secrets.SSH_USER }}
           # A porta usada pelo SSH 
           port: ${{ secrets.SSH_PORT }}
@@ -102,8 +102,7 @@ jobs:
           # executar o yarn para instalar os pacotes, 
           # rodar as migrations e reiniciar o pm2
           script: |
-            cd ~/app/Ignite-NodeJS-05-Rentx/
+            cd [caminho raiz da sua aplicação]
             yarn
             yarn typeorm migration:run
-            yarn pm2 restart rentx_api
- 
+            yarn pm2 restart [nome do processo da sua aplicacão]
