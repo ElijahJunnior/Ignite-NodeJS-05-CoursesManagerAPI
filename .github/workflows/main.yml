@@ -79,7 +79,7 @@ jobs:
           source: "., !node_modules"
           # Define qual deve ser o diretório de destino dentro da 
           # instancia que vai receber os arquivos
-          target: "caminho raiz da sua aplicação. Ex.: ~/app/meu_app"
+          target: "~/app/Ignite-NodeJS-05-Rentx/"
       # Essa etapa faz uso do Appleboy ssh-action para executar 
       # um script via SSH na instancia onde a aplicação está hospedada
       -
@@ -102,7 +102,7 @@ jobs:
           # executar o yarn para instalar os pacotes, 
           # rodar as migrations e reiniciar o pm2
           script: |
-            cd [caminho raiz da sua aplicação]
+            cd ~/app/Ignite-NodeJS-05-Rentx/
             yarn
             yarn typeorm migration:run
-            yarn pm2 restart [nome do processo da sua aplicacão]
+            yarn pm2 restart rentx_api
