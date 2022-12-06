@@ -105,4 +105,4 @@ jobs:
             cd ~/app/Ignite-NodeJS-05-Rentx/
             yarn
             yarn typeorm migration:run
-            yarn pm2 restart rentx_api
+            pm2 restart rentx_api
