@@ -21,7 +21,12 @@ services:
     # define onde serão salvos os dados da base
     volumes:
       - pgdata:/data/postgres
-
+  # nome do container 
+  database_redis_rentx:
+    #imagem que será usada
+    image: redis:alpine
+    ports:
+      - 6379:6379
   # nome do serviço
   app:
     # nome da imagem que será usada ou criada
