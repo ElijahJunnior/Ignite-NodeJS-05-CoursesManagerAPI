@@ -10,10 +10,13 @@ const redisClient = redis.createClient({
 });
 
 const limiter = new RateLimiterRedis({
-  storeClient: redisClient, // Instancia do banco de dados
-  keyPrefix: "raterLimiter",
-  duration: 5, // intervalo para que a contagem de consumos seja zerada
-  points: 5, // quantos consumos serão permitidos dentro do intervalo
+  // Instancia do banco de dados
+  storeClient: redisClient,
+  keyPrefix: "rateLimiter",
+  // intervalo para que a contagem de consumos seja zerada
+  duration: Number(process.env.RATE_LIMITER_DURATION),
+  // quantos consumos serão permitidos dentro do intervalo
+  points: Number(process.env.RATE_LIMITER_POINTS),
 });
 
 export default async function rateLimiter(
