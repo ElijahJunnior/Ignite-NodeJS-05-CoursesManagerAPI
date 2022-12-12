@@ -23,7 +23,6 @@ export default async function rateLimiter(
 ): Promise<void> {
   try {
     await limiter.consume(req.ip);
-    console.log("req");
 
     return nxt();
   } catch (err) {
