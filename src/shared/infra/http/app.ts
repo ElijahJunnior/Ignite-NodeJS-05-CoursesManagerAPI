@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import "dotenv/config";
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 
@@ -20,8 +20,8 @@ import "@shared/container";
 // Iniciando o express
 const app = express();
 
-// Abrindo a conexão com o banco de dados
-createConnection();
+// Chamando middleware para limitar so acessos por ip/intervalo
+app.use(rateLimiter);
 
 // Criando arquivos de configuração do sentry
 Sentry.init({
@@ -33,15 +33,15 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-// Chamando middleware para limitar so acessos por ip/intervalo
-app.use(rateLimiter);
-
-// Chamando middleware que convert os parâmetros em JSON
-app.use(express.json());
-
 // Chamando middlewares do Sentry para analisar erros e performance
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
+
+// Abrindo a conexão com o banco de dados
+createConnection();
+
+// Chamando middleware que convert os parâmetros em JSON
+app.use(express.json());
 
 // Rota de documentação
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
@@ -56,20 +56,12 @@ app.use(cors());
 // Demais rotas da aplicação
 app.use(router);
 
-// Tratamento para definir quais erros serão enviados para o Sentry
-app.use(
-  Sentry.Handlers.errorHandler({
-    shouldHandleError(error) {
-      if (error.status === 429 || error.status === 500) {
-        return true;
-      }
-      return false;
-    },
-  })
-);
+// Middleware para capturar os erros e enviar para o Sentry
+app.use(Sentry.Handlers.errorHandler());
 
 // Tratamentos dos erros da aplicação
-app.use((err: Error, req: Request, res: Response) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
       message: err.message,
